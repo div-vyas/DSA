@@ -29,19 +29,31 @@ class Solution {
         // }
         // return maxi;
 
-        // Optimal - Kadence Algorithm
+        // // Optimal - Kadence Algorithm
 
-        int maxi = Integer.MIN_VALUE;
-        int n = nums.length;
-        int sum = 0;
+        // int maxi = Integer.MIN_VALUE;
+        // int n = nums.length;
+        // int sum = 0;
 
-        for(int i=0; i<n; i++){
-            if(sum < 0){
-                sum = 0;
-            }
-            sum += nums[i];
-            maxi = Math.max(sum, maxi);
+        // for(int i=0; i<n; i++){
+        //     if(sum < 0){
+        //         sum = 0;
+        //     }
+        //     sum += nums[i];
+        //     maxi = Math.max(sum, maxi);
+        // }
+        // return maxi;
+
+        // Optimal - 2
+        int sum=0;
+        int largest=nums[0];
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            largest=sum>largest?sum:largest;
+        if(sum<0){
+            sum=0;
         }
-        return maxi;
+        }
+        return largest;
     }
 }
