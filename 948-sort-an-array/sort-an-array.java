@@ -1,35 +1,48 @@
 class Solution {
     public int[] sortArray(int[] nums) {
-        mergeSort(nums, 0, nums.length - 1);
+        int n = nums.length;
+        mergeSort(nums, 0, n-1);
         return nums;
     }
 
-    private void mergeSort(int[] nums, int start, int end) {
-        if (start >= end) return;
-
-        int mid = start + (end - start) / 2;
-        mergeSort(nums, start, mid);
-        mergeSort(nums, mid + 1, end);
-        merge(nums, start, mid, end);
+    public static void mergeSort(int[] nums, int low, int high){
+        if(low >= high){
+            return;
+        }
+        int mid = (low+ high)/2;
+        mergeSort(nums, low, mid);
+        mergeSort(nums, mid+1, high);
+        merge(nums, low, mid, high);
     }
 
-    private void merge(int[] nums, int start, int mid, int end) {
-        int[] temp = new int[end - start + 1];
-        int i = start, j = mid + 1, k = 0;
+    public static void merge(int[] nums, int low, int mid, int high){
+        ArrayList<Integer> temp = new ArrayList<>();
+        int left = low;
+        int right = mid + 1;
 
-        while (i <= mid && j <= end) {
-            if (nums[i] <= nums[j]) {
-                temp[k++] = nums[i++];
-            } else {
-                temp[k++] = nums[j++];
+        while(left <= mid && right <= high){
+            if(nums[left] <= nums[right]){
+                temp.add(nums[left]);
+                left++;
+            }
+            else{
+                temp.add(nums[right]);
+                right++;
             }
         }
 
-        while (i <= mid) temp[k++] = nums[i++];
-        while (j <= end) temp[k++] = nums[j++];
+        while(left <= mid){
+            temp.add(nums[left]);
+            left++;
+        }
 
-        for (int t = 0; t < temp.length; t++) {
-            nums[start + t] = temp[t];
+        while(right <= high){
+            temp.add(nums[right]);
+            right++;
+        }
+
+        for(int i=low; i<=high; i++){
+            nums[i] = temp.get(i - low);
         }
     }
 }
