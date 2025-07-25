@@ -1,26 +1,18 @@
 class Solution {
     public int maxSum(int[] nums) {
-        Set<Integer> seen = new HashSet<>();
-        int largestNonPos = Integer.MIN_VALUE;
-        int maxSum = 0;
-
-        for(int num : nums){
-            if(!seen.contains(num)){
-                seen.add(num);
-
-                if(num > 0){
-                    maxSum += num;
-                }
-                else{
-                    largestNonPos = Math.max(largestNonPos, num);
-                }
+        Arrays.sort(nums);
+        int n = nums.length;
+        int last = nums[n-1];
+        int sum = last;
+        for(int i=n-2; i>=0; i--){ 
+            if(nums[i] <= 0){
+                return sum;
             }
+            else if(nums[i] != last){
+                sum += nums[i];
+            }
+            last = nums[i];
         }
-        if(maxSum > 0){
-            return maxSum;
-        }
-        else{
-            return largestNonPos;
-        }
+        return sum;
     }
 }
